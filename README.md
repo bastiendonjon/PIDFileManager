@@ -24,10 +24,11 @@ composer require bastiendonjon/PIDFileManager:1.0.x
 // Usage in simple task :
 $elem = new PIDFileManager('myProcessName', storage_path());
 $elem->start();
-*
+
 // Usage in daemon task :
 $elem = new PIDFileManager('myProcessName', storage_path());
 $elem->start();
+
 while(true) {
     sleep(1)
     $elem->oneLoop();
