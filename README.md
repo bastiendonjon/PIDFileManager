@@ -9,14 +9,14 @@ You must modify your `composer.json` file and run `composer update` to include t
 
 ```json
 "require": {
-    "bastiendonjon/PIDFileManager": "1.0.*"
+    "bastiendonjon/pid-file-manager": "1.0.*"
 }
 ```
 
 Or you can run the `composer require` command from your terminal:
 
 ```
-composer require bastiendonjon/PIDFileManager:1.0.x
+composer require bastiendonjon/pid-file-manager
 ```
 
 ## Usage
