@@ -2,7 +2,7 @@
   "name": "bastiendonjon/pid-file-manager",
   "description": "PID file manager for prevent overlapping in cron task",
   "keywords": ["pid", "file", "task", "cron", "manager", "overlapping"],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "authors": [
     {
       "name": "Bastien Donjon",
@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "BastienDonjon\\PIDFileManager\\": "src/"
+      "BastienDonjon\\": "src/"
     }
   },
   "minimum-stability": "stable"
