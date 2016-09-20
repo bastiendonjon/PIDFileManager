@@ -80,9 +80,6 @@ class PIDFileManager
         $this->processName = $processName;
         $this->location    = $location;
 
-        $this->installSignalsHandler();
-        $this->installShutdownHandler();
-
         if (is_string($this->location) && !is_dir($this->location)) {
             throw new Exception('Location path is invalid');
         }
@@ -98,6 +95,9 @@ class PIDFileManager
         if (!$this->readLockFile() || $this->processExist()) {
             throw new Exception('The process is already in progress');
         }
+
+        $this->installSignalsHandler();
+        $this->installShutdownHandler();
 
         $this->storePid();
     }
