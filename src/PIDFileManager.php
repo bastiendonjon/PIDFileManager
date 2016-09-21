@@ -6,10 +6,8 @@ use Exception;
 
 /**
  * Class PIDFileManager
-
  * Class prevent of overlap between multiple executions of the cron job.
  * This class use PID file.
-
  * Stop conditions :
  * - Signals (ex : SIGTERM)
  * - End of file
@@ -30,7 +28,7 @@ use Exception;
  *      $elem->oneLoop();
  * }
  *
-*@package Actibase\Webservices\Domain
+ * @package Actibase\Webservices\Domain
  */
 class PIDFileManager
 {
@@ -92,14 +90,42 @@ class PIDFileManager
      */
     public function start()
     {
-        if (!$this->readLockFile() || $this->processExist()) {
+        if ($this->isProcessInProgress()) {
             throw new Exception('The process is already in progress');
         }
 
-        $this->installSignalsHandler();
-        $this->installShutdownHandler();
+        if (!$this->isCliMode()) {
+            throw new Exception('The process cannot be handled in non-cli mode');
+        }
+
+        $this->installHandlers();
 
         $this->storePid();
+    }
+
+    /**
+     *
+     */
+    private function installHandlers()
+    {
+        $this->installSignalsHandler();
+        $this->installShutdownHandler();
+    }
+
+    /**
+     * @return bool
+     */
+    private function isCliMode()
+    {
+        return (php_sapi_name() === 'cli');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProcessInProgress()
+    {
+        return (!$this->readLockFile() || $this->processExist());
     }
 
     /**
@@ -245,7 +271,7 @@ class PIDFileManager
             pcntl_signal(
                 $signal,
                 function ($signo) {
-                    call_user_func([ $this, 'signalHandler'], $signo);
+                    call_user_func([ $this, 'signalHandler' ], $signo);
                 }
             );
         }
