@@ -59,15 +59,6 @@ class PIDFileManager
     private $lockFileResource = null;
 
     /**
-     * @var array
-     */
-    private static $signals = [
-        SIGINT,
-        SIGTERM,
-        SIGQUIT
-    ];
-
-    /**
      * @param      $processName
      * @param null $location
      *
@@ -266,8 +257,13 @@ class PIDFileManager
      */
     private function installSignalsHandler()
     {
+        $signals = [
+            SIGINT,
+            SIGTERM,
+            SIGQUIT
+        ];
         declare(ticks = 1);
-        foreach (self::$signals as $signal) {
+        foreach ($signals as $signal) {
             pcntl_signal(
                 $signal,
                 function ($signo) {
