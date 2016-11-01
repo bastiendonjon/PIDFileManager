@@ -29,8 +29,9 @@ $elem->start();
 $elem = new PIDFileManager('myProcessName', storage_path());
 $elem->start();
 
+// Add oneTime if you demonize your script
 while(true) {
     sleep(1)
-    $elem->oneLoop();
+    $elem->oneTime();
 }
 ```
